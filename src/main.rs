@@ -21,6 +21,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             concurrency,
             report,
             quiet,
+            staging_dir,
             ..
         } => lix::commands::handle_extract(
             input,
@@ -31,6 +32,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             concurrency,
             report,
             quiet,
+            staging_dir,
         ),
         Commands::Convert {
             input,

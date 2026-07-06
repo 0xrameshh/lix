@@ -54,6 +54,10 @@ pub enum Commands {
         /// Suppress progress output
         #[arg(short, long)]
         quiet: bool,
+
+        /// Stage raw traces and output to a dataset directory
+        #[arg(long)]
+        staging_dir: Option<PathBuf>,
     },
 
     /// Alias for extract --no-clean

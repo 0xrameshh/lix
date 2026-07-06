@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use crate::{
     report::{FileReport, FileStatus},
@@ -58,7 +58,20 @@ pub fn handle_extract(
     concurrency: Option<usize>,
     report: Option<PathBuf>,
     quiet: bool,
+    staging_dir: Option<PathBuf>,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    if let Some(ref staging) = staging_dir {
+        return extract_staged(
+            input,
+            staging,
+            model,
+            no_clean,
+            keep_incomplete,
+            concurrency,
+            quiet,
+        );
+    }
+
     let opts = PipelineOpts {
         clean: !no_clean,
         drop_incomplete: !keep_incomplete && !no_clean,
@@ -97,5 +110,61 @@ pub fn handle_extract(
         })?;
         serde_json::to_writer_pretty(file, &rep)?;
     }
+    Ok(())
+}
+
+fn extract_staged(
+    input: Option<PathBuf>,
+    staging_dir: &Path,
+    model: Option<String>,
+    no_clean: bool,
+    keep_incomplete: bool,
+    concurrency: Option<usize>,
+    quiet: bool,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let raw_dir = staging_dir.join("raw");
+    std::fs::create_dir_all(&raw_dir)?;
+
+    let files = resolve_files(&input)?;
+    for f in &files.files {
+        let dest = raw_dir.join(f.file_name().unwrap_or_default());
+        std::fs::copy(f, &dest).map_err(|e| TraceForgeError::Io {
+            path: f.display().to_string(),
+            source: e,
+        })?;
+    }
+
+    let train_path = staging_dir.join("train.jsonl");
+    let opts = PipelineOpts {
+        clean: !no_clean,
+        drop_incomplete: !keep_incomplete && !no_clean,
+        model_filter: model,
+        concurrency,
+    };
+    let rep = run_pipeline_files(files, &train_path, opts)?;
+
+    let readme = staging_dir.join("README.md");
+    let readme_content = format!(
+        "# Agent Traces\n\n\
+         Extracted by lix.\n\n\
+         - {} raw trace files\n\
+         - {} sessions converted\n\
+         - {} replacements\n\
+         \n\
+         Rows written to `train.jsonl`.\n",
+        rep.files_total, rep.rows_written, rep.total_replacements,
+    );
+    std::fs::write(&readme, &readme_content)?;
+
+    if !quiet {
+        eprintln!(
+            "Staged {} raw files to {}",
+            rep.files_total,
+            raw_dir.display()
+        );
+        eprintln!("Training data: {}", train_path.display());
+        eprintln!("{}", readme_content);
+    }
+
     Ok(())
 }
