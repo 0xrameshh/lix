@@ -44,7 +44,7 @@ pub enum Commands {
         keep_incomplete: bool,
 
         /// Number of worker threads
-        #[arg(short, long, env = "TRACEFORGE_CONCURRENCY")]
+        #[arg(short, long, env = "LIX_CONCURRENCY")]
         concurrency: Option<usize>,
 
         /// Write a JSON report to this path
@@ -63,10 +63,12 @@ pub enum Commands {
         out: PathBuf,
         #[arg(short, long)]
         model: Option<String>,
-        #[arg(short, long, env = "TRACEFORGE_CONCURRENCY")]
+        #[arg(short, long, env = "LIX_CONCURRENCY")]
         concurrency: Option<usize>,
         #[arg(short, long)]
         report: Option<PathBuf>,
+        #[arg(short, long)]
+        quiet: bool,
     },
 
     /// Re-clean an already-extracted JSONL file
