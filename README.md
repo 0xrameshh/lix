@@ -44,12 +44,16 @@ lix find
 ## Install
 
 ```sh
-# Download the binary (once we have releases)
-curl -LO https://github.com/0xrameshh/lix/releases/latest/lix-x86_64-unknown-linux-gnu
+curl -LO https://github.com/0xrameshh/lix/releases/latest/download/lix
 chmod +x lix
+./lix --help
+```
 
-# Or with cargo
-cargo install lix
+Or build from source:
+
+```sh
+cargo build --release
+./target/release/lix --help
 ```
 
 ## Other commands
