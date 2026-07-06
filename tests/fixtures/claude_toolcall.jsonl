@@ -1,0 +1,5 @@
+{"type":"user","sessionId":"test-session-2","message":{"role":"user","content":"Read the README"},"uuid":"u1","timestamp":"2026-01-01T00:00:00Z"}
+{"type":"assistant","sessionId":"test-session-2","message":{"model":"claude-sonnet-4","id":"msg_2","role":"assistant","content":[{"type":"tool_use","id":"call_1","name":"Read","input":{"file_path":"README.md"}}],"usage":{"input_tokens":10,"output_tokens":5}},"uuid":"a1","timestamp":"2026-01-01T00:00:01Z"}
+{"type":"user","sessionId":"test-session-2","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"call_1","content":[{"type":"text","text":"# My Project\n\nWelcome!"}]}]},"uuid":"u2","timestamp":"2026-01-01T00:00:02Z"}
+{"type":"assistant","sessionId":"test-session-2","message":{"model":"claude-sonnet-4","id":"msg_3","role":"assistant","content":[{"type":"text","text":"The README says it's a project."}],"usage":{"input_tokens":20,"output_tokens":5}},"uuid":"a2","timestamp":"2026-01-01T00:00:03Z"}
+{"type":"result","sessionId":"test-session-2","timestamp":"2026-01-01T00:00:04Z"}

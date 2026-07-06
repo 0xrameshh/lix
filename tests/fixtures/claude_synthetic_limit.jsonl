@@ -1,0 +1,3 @@
+{"type":"user","sessionId":"test-session-3","message":{"role":"user","content":"Do something"},"uuid":"u1","timestamp":"2026-01-01T00:00:00Z"}
+{"type":"assistant","sessionId":"test-session-3","isApiErrorMessage":true,"error":"rate_limit","message":{"model":"claude-opus-4-6","id":"msg_3","role":"assistant","content":[{"type":"text","text":"We hit a session limit. Please try again later."}],"usage":{"input_tokens":5,"output_tokens":8}},"uuid":"a1","timestamp":"2026-01-01T00:00:01Z"}
+{"type":"result","sessionId":"test-session-3","timestamp":"2026-01-01T00:00:02Z"}

@@ -1,0 +1,25 @@
+mod cleaner;
+mod cli;
+pub mod commands;
+mod discover;
+mod error;
+mod models;
+mod parser;
+mod pipeline;
+mod providers;
+mod report;
+mod sqlite;
+mod tools;
+mod writer;
+
+pub use cleaner::{CleanReport, Cleaner};
+pub use cli::{Cli, Commands};
+pub use discover::FileSet;
+pub use error::{Result, TraceForgeError};
+pub use models::*;
+pub use parser::{read_all_events, LineReader, RawEvent};
+pub use pipeline::{run_pipeline, run_pipeline_files, PipelineOpts};
+pub use providers::{detect, for_type, NormalizedSession, Provider};
+pub use report::{ExtractionReport, FileReport, FileStatus};
+pub use tools::{build_tools, claude_code_builtins, infer_parameters};
+pub use writer::JsonlSink;

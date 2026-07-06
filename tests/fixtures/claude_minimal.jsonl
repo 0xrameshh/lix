@@ -1,0 +1,7 @@
+{"type":"queue-operation","operation":"enqueue","sessionId":"test-session-1","timestamp":"2026-01-01T00:00:00Z","content":"Build a todo app"}
+{"type":"queue-operation","operation":"dequeue","sessionId":"test-session-1","timestamp":"2026-01-01T00:00:01Z"}
+{"type":"user","sessionId":"test-session-1","cwd":"/Users/testuser/project","version":"2.1.77","gitBranch":"main","message":{"role":"user","content":"Build a todo app"},"uuid":"u1","timestamp":"2026-01-01T00:00:02Z","userType":"external"}
+{"type":"assistant","sessionId":"test-session-1","cwd":"/Users/testuser/project","message":{"model":"claude-opus-4-6","id":"msg_1","role":"assistant","content":[{"type":"thinking","thinking":"Let me build a todo app.","signature":"sig123"}],"usage":{"input_tokens":10,"output_tokens":5}},"uuid":"a1","timestamp":"2026-01-01T00:00:03Z"}
+{"type":"assistant","sessionId":"test-session-1","cwd":"/Users/testuser/project","message":{"model":"claude-opus-4-6","id":"msg_1","role":"assistant","content":[{"type":"text","text":"I'll start by creating the project files."}],"usage":{"input_tokens":10,"output_tokens":5}},"uuid":"a2","timestamp":"2026-01-01T00:00:04Z"}
+{"type":"result","sessionId":"test-session-1","timestamp":"2026-01-01T00:00:05Z","usage":{"total_tokens":15},"result":"Done."}
+{"type":"last-prompt","content":"Build a todo app"}
